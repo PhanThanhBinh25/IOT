@@ -1,0 +1,574 @@
+/* ===== FILE: datasensor.css - GIAO DIỆN TRANG DỮ LIỆU CẢM BIẾN ===== */
+
+/* Khởi tạo biến màu sắc, phông chữ và thông số thiết kế cho trang dữ liệu cảm biến */
+:root {
+  /* Bảng màu chính */
+  --color-primary: #2c3e6b;
+  --color-primary-light: #4a6fa5;
+  --color-primary-lighter: #6b8fc7;
+  --color-accent: #5b6abf;
+  --color-accent-hover: #4a58a8;
+
+  /* Màu nền */
+  --color-bg-body: #e8f0fe;
+  --color-bg-sidebar: #dce7f7;
+  --color-bg-white: #ffffff;
+  --color-bg-card: #ffffff;
+
+  /* Màu chữ */
+  --color-text-dark: #1a2a4a;
+  --color-text-body: #3a4a6a;
+  --color-text-muted: #7a8aaa;
+  --color-text-white: #ffffff;
+
+  /* Màu viền & trạng thái */
+  --color-border: #d0daf0;
+  --color-border-light: #e0e8f5;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+
+  /* Đổ bóng */
+  --shadow-sm: 0 1px 3px rgba(44, 62, 107, 0.08);
+  --shadow-md: 0 4px 12px rgba(44, 62, 107, 0.1);
+  --shadow-lg: 0 8px 24px rgba(44, 62, 107, 0.12);
+
+  /* Bo góc */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 7px;
+  --radius-xl: 10px;
+
+  /* Hiệu ứng chuyển động */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Phông chữ */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== RESET CSS ===== */
+
+/* Xóa khoảng cách mặc định và chuẩn hóa box-sizing cho mọi phần tử */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cấu hình phông chữ co giãn và cuộn mượt cho thẻ html */
+html {
+  font-size: clamp(12px, 1vw + 8px, 16px);
+  scroll-behavior: smooth;
+}
+
+/* Cấu hình nền trang, phông chữ và khóa thanh cuộn body */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Xóa gạch chân cho thẻ liên kết */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Xóa dấu đầu dòng danh sách */
+ul, ol {
+  list-style: none;
+}
+
+/* Cấu hình hình ảnh co giãn tối đa */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Cấu hình nút bấm chuột và bỏ viền */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* Bỏ viền xanh sáng khi focus cho input và select */
+input, select {
+  font-family: inherit;
+  outline: none;
+}
+
+/* Chuẩn hóa bảng dữ liệu liền viền */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+/* ===== BỐ CỤC CHUNG (LAYOUT) ===== */
+
+/* Khung bọc flexbox toàn trang */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Khu vực nội dung chính chứa bảng dữ liệu cảm biến */
+.main-content {
+  flex: 1;
+  margin-left: 160px;
+  padding: 24px 28px;
+  height: 100vh;
+  overflow-y: auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== THANH ĐIỀU HƯỚNG BÊN TRÁI (SIDEBAR) ===== */
+
+/* Thanh menu sidebar cố định mép trái */
+.sidebar {
+  width: 160px;
+  background: var(--color-bg-sidebar);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid var(--color-border-light);
+}
+
+/* Khối logo thương hiệu */
+.sidebar-logo {
+  padding: 24px 20px 20px;
+}
+
+/* Tiêu đề ứng dụng trong logo */
+.sidebar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Danh sách menu điều hướng */
+.sidebar-nav {
+  flex: 1;
+  padding: 8px 12px;
+}
+
+/* Định dạng từng liên kết trong menu */
+.sidebar-nav a {
+  display: block;
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+/* Hiệu ứng khi rê chuột vào mục menu */
+.sidebar-nav a:hover {
+  background: rgba(44, 62, 107, 0.08);
+  color: var(--color-primary);
+}
+
+/* Trạng thái trang đang chọn (Data Sensor) */
+.sidebar-nav a.active {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44, 62, 107, 0.3);
+}
+
+/* Khối chân sidebar chứa user và logout */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Khối thông tin người dùng */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Avatar chữ viết tắt của người dùng */
+.sidebar-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Khối text tên và vai trò */
+.sidebar-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tên người dùng hiển thị */
+.sidebar-user-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Vai trò người dùng */
+.sidebar-user-role {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+/* Nút bấm đăng xuất */
+.btn-logout {
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1.5px solid var(--color-danger);
+  transition: all var(--transition-fast);
+}
+
+/* Hiệu ứng khi rê chuột vào nút đăng xuất */
+.btn-logout:hover {
+  background: var(--color-danger);
+  color: var(--color-text-white);
+}
+
+/* ===== KHUNG BẢNG DỮ LIỆU CẢM BIẾN (TABLE LAYOUT) ===== */
+
+/* Khung thẻ bao bọc toàn bộ khối bảng dữ liệu */
+.data-table-wrapper {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  border: 1px solid var(--color-border-light);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Thanh tiêu đề và các bộ lọc tìm kiếm trên đầu bảng */
+.data-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid var(--color-border-light);
+  background-color: var(--color-bg-white);
+  flex-shrink: 0;
+}
+
+/* Tiêu đề bảng dữ liệu cảm biến */
+.data-table-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
+
+/* Nhãn hiển thị số lượng bản ghi tìm thấy */
+.data-table-header .result-count {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Khối chứa cụm công cụ lọc và tìm kiếm */
+.data-table-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Nhãn tiêu đề bộ lọc */
+.data-table-filters label {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+/* Định dạng ô chọn select và ô nhập input tìm kiếm */
+.data-table-filters select,
+.data-table-filters input {
+  padding: 8px 12px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  color: var(--color-text-body);
+  background: var(--color-bg-white);
+  transition: border-color var(--transition-fast);
+}
+
+/* Đổi màu viền khi người dùng focus vào ô lọc */
+.data-table-filters select:focus,
+.data-table-filters input:focus {
+  border-color: var(--color-primary-light);
+}
+
+/* Khu vực cuộn độc lập chứa bảng dữ liệu */
+.data-table {
+  overflow-y: scroll;
+  overflow-x: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Tùy chỉnh độ rộng thanh cuộn WebKit */
+.data-table::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Rãnh chạy của thanh cuộn */
+.data-table::-webkit-scrollbar-track {
+  background: var(--color-bg-white);
+  border-radius: 4px;
+}
+
+/* Con trượt thanh cuộn */
+.data-table::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Hiệu ứng khi rê chuột vào con trượt cuộn */
+.data-table::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Bảng dữ liệu chính */
+.data-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Dòng tiêu đề đầu bảng dữ liệu */
+.data-table thead {
+  background: var(--color-primary);
+}
+
+/* Tiêu đề cột bảng dữ liệu dính cố định khi cuộn */
+.data-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 12px 20px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-white);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition-fast);
+}
+
+/* Hiệu ứng khi rê chuột vào tiêu đề cột để sắp xếp */
+.data-table thead th:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Icon mũi tên sắp xếp cạnh tiêu đề cột */
+.data-table thead th .sort-icon {
+  margin-left: 4px;
+  opacity: 0.6;
+  font-size: 0.7rem;
+}
+
+/* Từng hàng dữ liệu trong bảng */
+.data-table tbody tr {
+  height: 54px;
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition-fast);
+}
+
+/* Hiệu ứng làm nổi hàng khi rê chuột */
+.data-table tbody tr:hover {
+  background: rgba(44, 62, 107, 0.03);
+}
+
+/* Xóa viền đáy cho hàng cuối cùng của bảng */
+.data-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+/* Từng ô dữ liệu trong bảng */
+.data-table tbody td {
+  padding: 12px 20px;
+  font-size: 0.8125rem;
+  color: var(--color-text-body);
+  white-space: nowrap;
+}
+
+/* Căn giữa cho cột ID, Giá trị và Thời gian */
+.data-table thead th:nth-child(1),
+.data-table tbody td:nth-child(1),
+.data-table thead th:nth-child(3),
+.data-table tbody td:nth-child(3),
+.data-table thead th:nth-child(4),
+.data-table tbody td:nth-child(4) {
+  text-align: center;
+}
+
+/* Căn trái cho cột Tên cảm biến */
+.data-table thead th:nth-child(2),
+.data-table tbody td:nth-child(2) {
+  text-align: left;
+}
+
+/* Độ rộng các cột dữ liệu cảm biến */
+.data-sensor-page .col-id { width: 10%; }
+.data-sensor-page .col-sensor { width: 30%; }
+.data-sensor-page .col-value { width: 30%; }
+.data-sensor-page .col-time { width: 30%; }
+
+/* ===== PHÂN TRANG (PAGINATION) ===== */
+
+/* Khung điều khiển phân trang dưới chân bảng */
+.pagination-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-top: 1px solid var(--color-border-light);
+  background: var(--color-bg-white);
+  flex-shrink: 0;
+}
+
+/* Khối tùy chọn số bản ghi mỗi trang */
+.pagination-page-size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+/* Ô chọn số lượng bản ghi hiển thị */
+.pagination-page-size select {
+  padding: 4px 8px;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: var(--color-text-body);
+  outline: none;
+}
+
+/* Đổi màu viền khi focus vào ô chọn số bản ghi */
+.pagination-page-size select:focus {
+  border-color: var(--color-primary);
+}
+
+/* Đoạn text hiển thị thông tin trang hiện tại */
+.pagination-info {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+/* Cụm chứa các nút điều khiển chuyển trang */
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Định dạng từng nút bấm phân trang */
+.pagination-controls button {
+  min-width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--color-text-body);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-fast);
+  padding: 0 8px;
+}
+
+/* Hiệu ứng khi rê chuột vào nút phân trang */
+.pagination-controls button:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  border-color: var(--color-primary);
+}
+
+/* Trạng thái nút trang hiện tại đang xem */
+.pagination-controls button.active {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  border-color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Trạng thái nút phân trang bị vô hiệu hóa */
+.pagination-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== THIẾT KẾ ĐÁP ỨNG (RESPONSIVE) ===== */
+
+/* Responsive thu nhỏ sidebar trên màn hình dưới 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .sidebar-nav a {
+    font-size: 0;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .sidebar-user-info,
+  .sidebar-user-role {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 60px;
+    padding: 16px;
+  }
+}

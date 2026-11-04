@@ -1,0 +1,680 @@
+
+:root {
+  /* Bảng màu chính */
+  --color-primary: #2c3e6b;
+  --color-primary-light: #4a6fa5;
+  --color-primary-lighter: #6b8fc7;
+  --color-accent: #5b6abf;
+  --color-accent-hover: #4a58a8;
+
+  /* Màu nền */
+  --color-bg-body: #e8f0fe;
+  --color-bg-sidebar: #dce7f7;
+  --color-bg-white: #ffffff;
+  --color-bg-card: #ffffff;
+
+  /* Màu chữ */
+  --color-text-dark: #1a2a4a;
+  --color-text-body: #3a4a6a;
+  --color-text-muted: #7a8aaa;
+  --color-text-white: #ffffff;
+
+  /* Màu viền */
+  --color-border: #d0daf0;
+  --color-border-light: #e0e8f5;
+
+  /* Màu đặc trưng cho các loại cảm biến */
+  --color-temp: #dd8f1b;
+  --color-temp-bg: #f1c4c3;
+  --color-humidity: #314d96;
+  --color-humidity-bg: #beceea;
+  --color-light: #a08e27;
+  --color-light-bg: #fdf8e0;
+
+  /* Màu trạng thái */
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+
+  /* Đổ bóng */
+  --shadow-sm: 0 1px 3px rgba(44, 62, 107, 0.08);
+  --shadow-md: 0 4px 12px rgba(44, 62, 107, 0.1);
+  --shadow-lg: 0 8px 24px rgba(44, 62, 107, 0.12);
+
+  /* Bo góc */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 7px;
+  --radius-xl: 10px;
+
+  /* Hiệu ứng chuyển động */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Phông chữ mặc định */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== RESET CSS ===== */
+
+/* Xóa khoảng cách mặc định và chuẩn hóa cách tính kích thước cho mọi phần tử */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cấu hình kích thước chữ co giãn và cuộn mượt cho thẻ html */
+html {
+  font-size: clamp(12px, 1vw + 8px, 16px);
+  scroll-behavior: smooth;
+}
+
+/* Cấu hình phông chữ, màu nền và khóa cuộn cho body */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Xóa gạch chân và kế thừa màu chữ cho thẻ liên kết */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Xóa dấu chấm tròn mặc định của danh sách */
+ul, ol {
+  list-style: none;
+}
+
+/* Cấu hình hiển thị dạng khối và co giãn cho hình ảnh */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Cấu hình nút bấm chuột và xóa viền mặc định */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* ===== BỐ CỤC CHUNG (LAYOUT) ===== */
+
+/* Bố cục flexbox bao bọc toàn bộ trang ứng dụng */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Khung hiển thị nội dung chính của dashboard bên phải thanh sidebar */
+.main-content {
+  flex: 1;
+  margin-left: 160px;
+  padding: 24px 28px;
+  min-height: 100vh;
+}
+
+/* ===== THANH ĐIỀU HƯỚNG BÊN TRÁI (SIDEBAR) ===== */
+
+/* Thanh điều hướng cố định mép trái màn hình */
+.sidebar {
+  width: 160px;
+  background: var(--color-bg-sidebar);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid var(--color-border-light);
+}
+
+/* Khối bao bọc logo thương hiệu */
+.sidebar-logo {
+  padding: 24px 20px 20px;
+}
+
+/* Tiêu đề ứng dụng trong logo */
+.sidebar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Khối danh sách các liên kết điều hướng */
+.sidebar-nav {
+  flex: 1;
+  padding: 8px 12px;
+}
+
+/* Định dạng từng liên kết trong thanh menu */
+.sidebar-nav a {
+  display: block;
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+/* Hiệu ứng khi rê chuột vào mục menu */
+.sidebar-nav a:hover {
+  background: rgba(44, 62, 107, 0.08);
+  color: var(--color-primary);
+}
+
+/* Trạng thái kích hoạt của trang hiện tại trên menu */
+.sidebar-nav a.active {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44, 62, 107, 0.3);
+}
+
+/* Khối chân sidebar chứa user và nút đăng xuất */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Khối hiển thị thông tin người dùng ở chân menu */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Ảnh đại diện chữ cái viết tắt của người dùng */
+.sidebar-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Khối thông tin văn bản tên và vai trò */
+.sidebar-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tên người dùng hiển thị trên sidebar */
+.sidebar-user-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Vai trò người dùng */
+.sidebar-user-role {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+/* Nút bấm đăng xuất hệ thống */
+.btn-logout {
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1.5px solid var(--color-danger);
+  transition: all var(--transition-fast);
+}
+
+/* Hiệu ứng khi rê chuột vào nút đăng xuất */
+.btn-logout:hover {
+  background: var(--color-danger);
+  color: var(--color-text-white);
+}
+
+/* ===== NÚT GẠT BẬT / TẮT THIẾT BỊ (TOGGLE SWITCH) ===== */
+
+/* Khung bao ngoài của công tắc gạt bật/tắt thiết bị */
+.toggle-switch {
+  position: relative;
+  width: 54px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+/* Ẩn thẻ checkbox mặc định của HTML */
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Rãnh trượt nền của công tắc gạt khi ở trạng thái tắt */
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: #c0c8d8;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Nút tròn di chuyển bên trong rãnh trượt kèm icon dấu X */
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
+  background-size: 13px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hiệu ứng kéo dãn nút tròn khi nhấn giữ chuột */
+.toggle-switch:active .toggle-slider::before {
+  width: 28px;
+}
+
+/* Màu rãnh trượt khi công tắc được BẬT */
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--color-primary);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 0 8px rgba(13, 110, 253, 0.4);
+}
+
+/* Vị trí nút tròn trượt sang phải kèm icon dấu tích xanh khi BẬT */
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(26px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d6efd' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+}
+
+/* Hiệu ứng đàn hồi khi nhấn giữ chuột lúc công tắc đang bật */
+.toggle-switch:active input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+/* Khóa tương tác khi công tắc ở trạng thái chờ phản hồi */
+.toggle-switch.is-loading {
+  pointer-events: none;
+}
+
+/* Hiển thị vòng xoay spinner trên nút công tắc khi đang tải dữ liệu */
+.toggle-switch.is-loading .toggle-slider::before {
+  background-image: none !important;
+  border: 2.5px solid #e2e8f0;
+  border-top-color: var(--color-primary-light);
+  border-radius: 50%;
+  animation: toggleSpin 0.6s linear infinite;
+  box-sizing: border-box;
+}
+
+/* Hoạt ảnh xoay tròn spinner khi tắt sang bật */
+@keyframes toggleSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hoạt ảnh xoay tròn spinner tại vị trí bật */
+.toggle-switch.is-loading input:checked + .toggle-slider::before {
+  animation: toggleSpinChecked 0.6s linear infinite;
+}
+
+/* Hoạt ảnh xoay tại vị trí đã gạt sang phải */
+@keyframes toggleSpinChecked {
+  0% { transform: translateX(26px) rotate(0deg); }
+  100% { transform: translateX(26px) rotate(360deg); }
+}
+
+/* ===== THẺ CẢM BIẾN (SENSOR CARDS) ===== */
+
+/* Lưới hiển thị 3 thẻ cảm biến */
+.sensor-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Kiểu dáng chung của thẻ cảm biến */
+.sensor-card {
+  padding: 20px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+/* Hiệu ứng nhấc bổng thẻ cảm biến khi rê chuột */
+.sensor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Nhãn tên loại cảm biến */
+.sensor-card .sensor-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Giá trị số liệu đo của cảm biến */
+.sensor-card .sensor-value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* Màu nền thẻ cảm biến nhiệt độ */
+.sensor-card.temp {
+  background: var(--color-temp-bg);
+}
+
+/* Màu chữ hiển thị thông số cảm biến nhiệt độ */
+.sensor-card.temp .sensor-label,
+.sensor-card.temp .sensor-value {
+  color: var(--color-temp);
+}
+
+/* Màu nền thẻ cảm biến độ ẩm */
+.sensor-card.humidity {
+  background: var(--color-humidity-bg);
+}
+
+/* Màu chữ hiển thị thông số cảm biến độ ẩm */
+.sensor-card.humidity .sensor-label,
+.sensor-card.humidity .sensor-value {
+  color: var(--color-humidity);
+}
+
+/* Màu nền thẻ cảm biến ánh sáng */
+.sensor-card.light {
+  background: var(--color-light-bg);
+}
+
+/* Màu chữ hiển thị thông số cảm biến ánh sáng */
+.sensor-card.light .sensor-label,
+.sensor-card.light .sensor-value {
+  color: var(--color-light);
+}
+
+/* ===== KHU VỰC BIỂU ĐỒ & BẢNG ĐIỀU KHIỂN (DASHBOARD GRID & CHART) ===== */
+
+/* Bố cục 2 cột chia biểu đồ và bảng điều khiển thiết bị */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
+}
+
+/* Khung thẻ bao bọc biểu đồ */
+.chart-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px 24px;
+}
+
+/* Tiêu đề biểu đồ */
+.chart-card h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* Khung chứa canvas vẽ biểu đồ Chart.js */
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 420px;
+}
+
+/* Cụm chú giải các đường dữ liệu cảm biến */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+/* Từng mục chú giải cảm biến */
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Chấm tròn biểu thị màu của từng đường biểu đồ */
+.chart-legend-item .legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Màu chấm tròn chú giải nhiệt độ */
+.legend-dot.temp { background: var(--color-temp); }
+
+/* Màu chấm tròn chú giải ánh sáng */
+.legend-dot.light { background: var(--color-light); }
+
+/* Màu chấm tròn chú giải độ ẩm */
+.legend-dot.humidity { background: var(--color-primary); }
+
+/* ===== KHUNG ĐIỀU KHIỂN CÁC THIẾT BỊ (DEVICE CONTROLS) ===== */
+
+/* Khung thẻ bao bọc danh sách điều khiển thiết bị */
+.device-controls {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+}
+
+/* Tiêu đề mục điều khiển thiết bị */
+.device-controls h3 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 20px;
+}
+
+/* Từng hàng thiết bị gồm tên, icon và công tắc gạt */
+.device-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border-bottom: 1px solid var(--color-border-light);
+  transition: all var(--transition-normal);
+}
+
+/* Hiệu ứng khi rê chuột vào hàng thiết bị */
+.device-item:hover {
+  background: rgba(44, 62, 107, 0.03);
+}
+
+/* Trạng thái hàng thiết bị khi đang được bật */
+.device-item.active,
+.device-item:has(input:checked) {
+  background: rgba(44, 62, 107, 0.05);
+}
+
+/* Xóa viền đáy cho thiết bị cuối cùng */
+.device-item:last-child {
+  border-bottom: none;
+}
+
+/* Khối hiển thị tên và biểu tượng thiết bị */
+.device-item .device-name {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  color: var(--color-text-dark);
+  font-weight: 600;
+  transition: color var(--transition-fast);
+}
+
+/* Tên thiết bị đổi màu nổi bật khi bật */
+.device-item.active .device-name,
+.device-item:has(input:checked) .device-name {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* Cấu hình chung cho biểu tượng thiết bị */
+.device-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-right: 10px;
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.4s ease;
+  will-change: transform, filter;
+}
+
+/* ===== HIỆU ỨNG PHÓNG TO & PHÁT SÁNG THIẾT BỊ KHI BẬT ===== */
+
+/* Hiệu ứng phóng to và phát sáng vàng cho bóng đèn khi bật */
+.device-item.active .icon-light,
+.device-item:has(input:checked) .icon-light {
+  transform: scale(1.45);
+  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.9))
+          drop-shadow(0 0 22px rgba(255, 170, 0, 0.6));
+  animation: lightPulse 2s infinite ease-in-out;
+}
+
+/* Hoạt ảnh nhấp nháy phát sáng tuần hoàn của đèn */
+@keyframes lightPulse {
+  0%, 100% {
+    transform: scale(1.45);
+    filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.85))
+            drop-shadow(0 0 18px rgba(255, 170, 0, 0.5));
+  }
+  50% {
+    transform: scale(1.55);
+    filter: drop-shadow(0 0 14px rgba(255, 225, 0, 1))
+            drop-shadow(0 0 28px rgba(255, 180, 0, 0.75));
+  }
+}
+
+/* Hiệu ứng phóng to và tỏa ánh sáng xanh gió mát cho quạt khi bật */
+.device-item.active .icon-fan,
+.device-item:has(input:checked) .icon-fan {
+  transform: scale(1.4);
+  filter: drop-shadow(0 0 8px rgba(33, 150, 243, 0.85))
+          drop-shadow(0 0 18px rgba(0, 188, 212, 0.5));
+  animation: fanSpin 1.8s linear infinite;
+}
+
+
+@keyframes fanSpin {
+  from { transform: scale(1.4) rotate(0deg); }
+  to { transform: scale(1.4) rotate(360deg); }
+}
+
+/* Hiệu ứng phóng to và tỏa hơi lạnh xanh lơ cho điều hòa khi bật */
+.device-item.active .icon-ac,
+.device-item:has(input:checked) .icon-ac {
+  transform: scale(1.4);
+  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.9))
+          drop-shadow(0 0 20px rgba(100, 230, 255, 0.6));
+  animation: acGlow 2.5s infinite ease-in-out;
+}
+
+/* Hoạt ảnh tỏa hơi lạnh tuần hoàn của điều hòa */
+@keyframes acGlow {
+  0%, 100% {
+    transform: scale(1.4);
+    filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.85))
+            drop-shadow(0 0 16px rgba(100, 230, 255, 0.5));
+  }
+  50% {
+    transform: scale(1.48);
+    filter: drop-shadow(0 0 14px rgba(0, 230, 255, 1))
+            drop-shadow(0 0 26px rgba(120, 245, 255, 0.8));
+  }
+}
+
+/* ===== THIẾT KẾ ĐÁP ỨNG TRÊN CÁC KÍCH THƯỚC MÀN HÌNH (RESPONSIVE) ===== */
+
+/* Responsive điều chỉnh bố cục trên màn hình nhỏ hơn 1024px */
+@media (max-width: 1024px) {
+  .sensor-cards {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr 220px;
+  }
+}
+
+/* Responsive thu nhỏ sidebar và chuyển dashboard thành 1 cột trên màn hình dưới 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .sidebar-nav a {
+    font-size: 0;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .sidebar-user-info,
+  .sidebar-user-role {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 60px;
+    padding: 16px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IoT Active History - Lịch sử hoạt động thiết bị nhà thông minh">
+  <title>IoT - Active History</title>
+  
+  <!-- Kết nối font chữ Inter từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Nhúng file CSS giao diện lịch sử hoạt động -->
+  <link rel="stylesheet" href="../css/history.css">
+</head>
+<body>
+  <div class="app-layout history-page">
+    <!-- Khu vực thanh điều hướng bên trái (Sidebar) -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>IoT</h1>
+      </div>
+      
+      <!-- Danh sách menu điều hướng -->
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="datasensor.html">Data Sensor</a>
+        <a href="history.html" class="active">Active History</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      
+      <!-- Thông tin user đăng nhập và nút đăng xuất -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">admin</div>
+            <div class="sidebar-user-role">Quản trị viên</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="btnLogout">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Khu vực nội dung chính của trang lịch sử -->
+    <main class="main-content">
+      <div class="data-table-wrapper">
+        <!-- Tiêu đề trang và các bộ lọc tìm kiếm -->
+        <div class="data-table-header">
+          <div>
+            <h2>Lịch sử hoạt động</h2>
+            <!-- Số lượng bản ghi kết quả tìm thấy -->
+            <span class="result-count" id="resultCount">-- kết quả</span>
+          </div>
+          
+          <!-- Bộ lọc dữ liệu đa tiêu chí -->
+          <div class="data-table-filters">
+            <!-- Bộ lọc theo loại thiết bị -->
+            <select id="filterDevice">
+              <option value="all">Thiết Bị</option>
+              <option value="Quạt">Quạt</option>
+              <option value="Đèn">Đèn</option>
+              <option value="Điều hòa">Điều hòa</option>
+            </select>
+            
+            <!-- Bộ lọc theo hành động bật hoặc tắt -->
+            <select id="filterAction">
+              <option value="all">Hành Động</option>
+              <option value="Bật">Bật</option>
+              <option value="Tắt">Tắt</option>
+            </select>
+            
+            <!-- Bộ lọc theo trạng thái thực thi -->
+            <select id="filterStatus">
+              <option value="all">Status</option>
+              <option value="Thành công">Thành công</option>
+              <option value="Thất bại">Thất bại</option>
+              <option value="Đang xử lý">Đang xử lý</option>
+            </select>
+            
+            <!-- Ô nhập lọc theo mốc thời gian -->
+            <input type="text" id="filterTime" placeholder="2026-08-19 10:30:00">
+            <!-- Nút tìm kiếm áp dụng bộ lọc -->
+            <button id="btnSearch" class="btn-search">Tìm Kiếm</button>
+          </div>
+        </div>
+
+        <!-- Bảng hiển thị lịch sử hoạt động thiết bị -->
+        <div class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <!-- Tiêu đề cột ID kèm tính năng click sắp xếp -->
+                <th class="col-id" data-sort="id">
+                  <span>ID</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Thiết bị kèm sắp xếp -->
+                <th class="col-device" data-sort="device">
+                  <span>Thiết bị</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Hành động kèm sắp xếp -->
+                <th class="col-action" data-sort="action">
+                  <span>Hành động</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Trạng thái kèm sắp xếp -->
+                <th class="col-status" data-sort="status">
+                  <span>Trạng thái</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Thời gian ghi nhận kèm sắp xếp -->
+                <th class="col-time" data-sort="time">
+                  <span>Thời gian</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+              </tr>
+            </thead>
+            <!-- Thân bảng: Dữ liệu lịch sử sẽ được render linh hoạt từ history.js -->
+            <tbody id="historyTableBody">
+              <!-- Dữ liệu render tự động từ JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Thanh phân trang (Pagination) -->
+        <div class="pagination-wrapper">
+          <!-- Chọn số dòng hiển thị trên mỗi trang -->
+          <div class="pagination-page-size">
+            <label for="pageSizeSelect">Hiển thị:</label>
+            <select id="pageSizeSelect">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <!-- Thông tin chỉ số trang hiện tại -->
+          <div class="pagination-info" id="paginationInfo">Trang 1 / 1</div>
+          <!-- Các nút chuyển trang tạo bởi JS -->
+          <div class="pagination-controls" id="paginationControls">
+            <!-- Các nút phân trang render tự động bởi JS -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Nhúng API client và logic quản lý lịch sử thiết bị -->
+  <script src="../js/api.js"></script>
+  <script src="../js/history.js"></script>
+</body>
+</html>

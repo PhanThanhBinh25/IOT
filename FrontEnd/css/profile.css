@@ -1,0 +1,471 @@
+/* ===== FILE: profile.css - GIAO DIỆN TRANG THÔNG TIN CÁ NHÂN ===== */
+
+/* Khởi tạo biến màu sắc, phông chữ và thông số thiết kế cho trang profile */
+:root {
+  /* Bảng màu chính */
+  --color-primary: #2c3e6b;
+  --color-primary-light: #4a6fa5;
+  --color-primary-lighter: #6b8fc7;
+  --color-accent: #5b6abf;
+  --color-accent-hover: #4a58a8;
+
+  /* Màu nền */
+  --color-bg-body: #e8f0fe;
+  --color-bg-sidebar: #dce7f7;
+  --color-bg-white: #ffffff;
+  --color-bg-card: #ffffff;
+
+  /* Màu chữ */
+  --color-text-dark: #1a2a4a;
+  --color-text-body: #3a4a6a;
+  --color-text-muted: #7a8aaa;
+  --color-text-white: #ffffff;
+
+  /* Màu viền & trạng thái */
+  --color-border: #d0daf0;
+  --color-border-light: #e0e8f5;
+  --color-danger: #dc3545;
+
+  /* Đổ bóng */
+  --shadow-sm: 0 1px 3px rgba(44, 62, 107, 0.08);
+  --shadow-md: 0 4px 12px rgba(44, 62, 107, 0.1);
+  --shadow-lg: 0 8px 24px rgba(44, 62, 107, 0.12);
+
+  /* Bo góc */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 7px;
+  --radius-xl: 10px;
+
+  /* Hiệu ứng chuyển động */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* Phông chữ */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== RESET CSS ===== */
+
+/* Xóa khoảng cách mặc định và chuẩn hóa box-sizing cho mọi phần tử */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cấu hình phông chữ co giãn và cuộn mượt cho thẻ html */
+html {
+  font-size: clamp(12px, 1vw + 8px, 16px);
+  scroll-behavior: smooth;
+}
+
+/* Cấu hình thân trang web */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-body);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Xóa gạch chân mặc định của thẻ liên kết */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Xóa dấu đầu dòng của danh sách */
+ul, ol {
+  list-style: none;
+}
+
+/* Cấu hình hình ảnh co giãn tối đa */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Cấu hình nút bấm chuột và bỏ viền */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* ===== BỐ CỤC CHUNG (LAYOUT) ===== */
+
+/* Khung bọc flexbox toàn bộ trang ứng dụng */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Khu vực nội dung chính chứa hồ sơ cá nhân */
+.main-content {
+  flex: 1;
+  margin-left: 160px;
+  padding: 24px 28px;
+  min-height: 100vh;
+}
+
+/* ===== THANH ĐIỀU HƯỚNG BÊN TRÁI (SIDEBAR) ===== */
+
+/* Thanh menu sidebar cố định mép trái */
+.sidebar {
+  width: 160px;
+  background: var(--color-bg-sidebar);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid var(--color-border-light);
+}
+
+/* Khối logo trên đầu sidebar */
+.sidebar-logo {
+  padding: 24px 20px 20px;
+}
+
+/* Tiêu đề ứng dụng trong logo */
+.sidebar-logo h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Danh sách menu điều hướng */
+.sidebar-nav {
+  flex: 1;
+  padding: 8px 12px;
+}
+
+/* Định dạng từng liên kết trong thanh menu */
+.sidebar-nav a {
+  display: block;
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-body);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+/* Hiệu ứng khi rê chuột vào mục menu */
+.sidebar-nav a:hover {
+  background: rgba(44, 62, 107, 0.08);
+  color: var(--color-primary);
+}
+
+/* Trạng thái trang đang chọn (Profile) */
+.sidebar-nav a.active {
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(44, 62, 107, 0.3);
+}
+
+/* Khối chân sidebar chứa user và nút logout */
+.sidebar-footer {
+  padding: 16px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Khối hiển thị thông tin người dùng */
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Avatar chữ viết tắt của người dùng */
+.sidebar-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Khối text tên và vai trò */
+.sidebar-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Tên người dùng hiển thị */
+.sidebar-user-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Vai trò người dùng */
+.sidebar-user-role {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+}
+
+/* Nút bấm đăng xuất hệ thống */
+.btn-logout {
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-danger);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border: 1.5px solid var(--color-danger);
+  transition: all var(--transition-fast);
+}
+
+/* Hiệu ứng khi rê chuột vào nút đăng xuất */
+.btn-logout:hover {
+  background: var(--color-danger);
+  color: var(--color-text-white);
+}
+
+/* ===== GIAO DIỆN TRANG PROFILE (PROFILE PAGE) ===== */
+
+/* Khung giới hạn chiều rộng trang profile */
+.profile-page {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Banner thẻ đầu trang hiển thị thông tin vắn tắt */
+.profile-header {
+  background: var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Họa tiết ánh sáng trang trí nền banner profile */
+.profile-header::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 60%;
+  height: 180%;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Khung ảnh đại diện lớn hình tròn */
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-white);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+/* Khối thông tin tên và vai trò trong banner */
+.profile-info {
+  position: relative;
+  z-index: 1;
+}
+
+/* Họ và tên người dùng trong banner */
+.profile-info h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text-white);
+  margin-bottom: 2px;
+}
+
+/* Dòng text tài khoản và vai trò */
+.profile-info p {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Chữ đậm nhấn mạnh vai trò người dùng */
+.profile-info p strong {
+  color: var(--color-text-white);
+  font-weight: 600;
+}
+
+/* Danh sách chi tiết thông tin cá nhân */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+/* Từng hàng thông tin chi tiết (Họ tên, Email, SĐT, Ngày sinh) */
+.profile-detail-row {
+  display: flex;
+  align-items: center;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Nhãn tiêu đề thông tin bên trái */
+.profile-detail-row .detail-label {
+  width: 100px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  flex-shrink: 0;
+}
+
+/* Giá trị thông tin bên phải */
+.profile-detail-row .detail-value {
+  font-size: 0.875rem;
+  color: var(--color-text-dark);
+  font-weight: 500;
+}
+
+/* ===== KHU VỰC CÔNG CỤ & TIỆN ÍCH (TOOLS GRID) ===== */
+
+/* Khối bao bọc danh sách công cụ liên kết */
+.profile-tools {
+  margin-top: 8px;
+}
+
+/* Tiêu đề mục tiện ích công cụ */
+.profile-tools h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+/* Dòng mô tả phụ dưới tiêu đề công cụ */
+.profile-tools .tools-subtitle {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-bottom: 16px;
+}
+
+/* Lưới 4 cột hiển thị các thẻ công cụ */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Từng thẻ công cụ liên kết nhanh */
+.tool-card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  display: block;
+}
+
+/* Hiệu ứng nhấc bổng thẻ công cụ khi rê chuột */
+.tool-card:hover {
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Tiêu đề công cụ */
+.tool-card h4 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin-bottom: 4px;
+}
+
+/* Mô tả chức năng của công cụ */
+.tool-card p {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+/* ===== THIẾT KẾ ĐÁP ỨNG (RESPONSIVE) ===== */
+
+/* Responsive chuyển lưới công cụ thành 2 cột trên màn hình dưới 900px */
+@media (max-width: 900px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsive thu nhỏ sidebar trên màn hình dưới 768px */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar-logo h1 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .sidebar-nav a {
+    font-size: 0;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .sidebar-user-info,
+  .sidebar-user-role {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 60px;
+    padding: 16px;
+  }
+}
+
+/* Responsive chuyển lưới công cụ thành 1 cột và banner xếp dọc trên màn hình dưới 600px */
+@media (max-width: 600px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+}

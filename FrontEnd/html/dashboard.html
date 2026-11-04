@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IoT Dashboard - Giám sát và điều khiển thiết bị nhà thông minh">
+  <title>IoT - Dashboard</title>
+  
+  <!-- Kết nối font chữ Inter từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Nhúng các file CSS giao diện -->
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Khu vực thanh điều hướng bên trái (Sidebar) -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>IoT</h1>
+      </div>
+      
+      <!-- Các liên kết menu chính -->
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="datasensor.html">Data Sensor</a>
+        <a href="history.html">Active History</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      
+      <!-- Khu vực hiển thị thông tin người dùng ở cuối thanh menu -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">admin</div>
+            <div class="sidebar-user-role">Quản trị viên</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="btnLogout">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Khu vực nội dung chính của trang Dashboard -->
+    <main class="main-content">
+      
+      <!-- Danh sách các thẻ (card) hiển thị dữ liệu cảm biến tổng quan -->
+      <div class="sensor-cards">
+        <!-- Thẻ hiển thị Nhiệt độ -->
+        <div class="sensor-card temp">
+          <div class="sensor-label">Nhiệt độ</div>
+          <div class="sensor-value" id="tempValue">--°C</div>
+        </div>
+        
+        <!-- Thẻ hiển thị Độ ẩm -->
+        <div class="sensor-card humidity">
+          <div class="sensor-label">Độ ẩm</div>
+          <div class="sensor-value" id="humidityValue">--%</div>
+        </div>
+        
+        <!-- Thẻ hiển thị Ánh sáng -->
+        <div class="sensor-card light">
+          <div class="sensor-label">Ánh sáng</div>
+          <div class="sensor-value" id="lightValue">-- lux</div>
+        </div>
+      </div>
+
+      <!-- Khu vực hiển thị Biểu đồ và Điều khiển thiết bị -->
+      <div class="dashboard-grid">
+        
+        <!-- Phần Biểu đồ đồ thị đường -->
+        <div class="chart-card">
+          <h3>Biểu đồ cảm biến theo thời gian</h3>
+          <div class="chart-container">
+            <!-- Thẻ canvas dành cho thư viện Chart.js vẽ biểu đồ lên -->
+            <canvas id="sensorChart"></canvas>
+          </div>
+          
+          <!-- Chú thích tùy chỉnh cho các đường biểu đồ -->
+          <div class="chart-legend">
+            <div class="chart-legend-item">
+              <span class="legend-dot temp"></span>
+              Nhiệt độ (°C)
+            </div>
+            <div class="chart-legend-item">
+              <span class="legend-dot light"></span>
+              Độ sáng (lux)
+            </div>
+            <div class="chart-legend-item">
+              <span class="legend-dot humidity"></span>
+              Độ ẩm (%)
+            </div>
+          </div>
+        </div>
+
+        <!-- Phần Bảng điều khiển bật/tắt thiết bị -->
+        <div class="device-controls">
+          <h3>Điều khiển thiết bị</h3>
+          
+          <!-- Công tắc Đèn -->
+          <div class="device-item" data-device="light">
+            <span class="device-name"><span class="device-icon icon-light">💡</span> Đèn</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggleLight" data-device="light">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <!-- Công tắc Quạt -->
+          <div class="device-item" data-device="fan">
+            <span class="device-name"><span class="device-icon icon-fan">🌀</span> Quạt</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggleFan" data-device="fan">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+          
+          <!-- Công tắc Điều hòa -->
+          <div class="device-item" data-device="ac">
+            <span class="device-name"><span class="device-icon icon-ac">❄️</span> Điều hòa</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="toggleAC" data-device="ac">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Nhúng thư viện Chart.js từ CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Nhúng API client và logic Dashboard -->
+  <script src="../js/api.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

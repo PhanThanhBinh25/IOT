@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IoT Profile - Thông tin cá nhân người dùng">
+  <title>IoT - Profile</title>
+  
+  <!-- Kết nối font chữ Inter từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Nhúng file CSS giao diện trang thông tin cá nhân -->
+  <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Khu vực thanh điều hướng bên trái (Sidebar) -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>IoT</h1>
+      </div>
+      
+      <!-- Danh sách menu điều hướng các trang -->
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="datasensor.html">Data Sensor</a>
+        <a href="history.html">Active History</a>
+        <a href="profile.html" class="active">Profile</a>
+      </nav>
+      
+      <!-- Thông tin user đang đăng nhập và nút đăng xuất -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">admin</div>
+            <div class="sidebar-user-role">Quản trị viên</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="btnLogout">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Khu vực nội dung chính hiển thị hồ sơ cá nhân -->
+    <main class="main-content">
+      <div class="profile-page">
+        <!-- Phần tiêu đề hồ sơ: Avatar viết tắt và tên người dùng -->
+        <div class="profile-header">
+          <div class="profile-avatar" id="profileAvatar">PTB</div>
+          <div class="profile-info">
+            <h2 id="profileName">Phan Thanh Binh</h2>
+            <p>Đăng nhập với tài khoản: <strong id="profileUsername">admin</strong></p>
+          </div>
+        </div>
+
+        <!-- Phần danh sách chi tiết các thông tin cá nhân -->
+        <div class="profile-details">
+          <!-- Hàng hiển thị Ngày sinh -->
+          <div class="profile-detail-row">
+            <span class="detail-label">Ngày sinh</span>
+            <span class="detail-value" id="profileDOB">28/08/2005</span>
+          </div>
+          <!-- Hàng hiển thị Email liên hệ -->
+          <div class="profile-detail-row">
+            <span class="detail-label">Email</span>
+            <span class="detail-value" id="profileEmail">phanthanhbinh@gmail.com</span>
+          </div>
+          <!-- Hàng hiển thị Số điện thoại -->
+          <div class="profile-detail-row">
+            <span class="detail-label">SDT</span>
+            <span class="detail-value" id="profilePhone">0349883754</span>
+          </div>
+        </div>
+
+        <!-- Khu vực hiển thị các liên kết công cụ phục vụ dự án -->
+        <div class="profile-tools">
+          <h3>Liên kết công cụ</h3>
+          <p class="tools-subtitle">Truy cập nhanh các nền tảng dùng trong dự án</p>
+          
+          <!-- Lưới các thẻ liên kết công cụ -->
+          <div class="tools-grid">
+            <!-- Thẻ liên kết Figma -->
+            <a href="https://www.figma.com/design/58OsfAkWo5DMFX9VGRBJJ3/IOT_final?node-id=4-1281&t=Eiz4iq00zco1UqOo-1" target="_blank" rel="noopener noreferrer" class="tool-card" id="toolFigma">
+              <h4>Figma</h4>
+              <p>Bản thiết kế giao diện dự án</p>
+            </a>
+            <!-- Thẻ liên kết GitHub -->
+            <a href="#" class="tool-card" id="toolGithub">
+              <h4>GitHub</h4>
+              <p>Mã nguồn và tài liệu dự án</p>
+            </a>
+            <!-- Thẻ liên kết Postman -->
+            <a href="https://phanthanhbinh28082k5-9227979.postman.co/workspace/Phan-Thanh-B%C3%ACnh-_B23DCCN086's-W~75401124-e1f3-4746-87bf-287cdb8736f9/collection/52650224-cb93719b-4078-4b24-bf09-1a8e59c4af5a?action=share&source=copy-link&creator=52650224" target="_blank" rel="noopener noreferrer" class="tool-card" id="toolPostman">
+              <h4>Postman</h4>
+              <p>Bộ sưu tập API của dự án</p>
+            </a>
+            <!-- Thẻ liên kết Tài liệu báo cáo (Google Docs) -->
+            <a href="#" class="tool-card" id="toolDoc" >
+              <h4>Tài liệu Doc</h4>
+              <p id="toolDocDesc">Báo cáo và tài liệu dự án</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Nhúng API client và script trang Profile -->
+  <script src="../js/api.js"></script>
+  <script src="../js/profile.js"></script>
+</body>
+</html>

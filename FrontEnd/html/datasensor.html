@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IoT Data Sensor - Dữ liệu cảm biến nhà thông minh">
+  <title>IoT - Data Sensor</title>
+  
+  <!-- Kết nối font chữ Inter từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Nhúng file CSS giao diện trang dữ liệu cảm biến -->
+  <link rel="stylesheet" href="../css/datasensor.css">
+</head>
+<body>
+  <div class="app-layout data-sensor-page">
+    <!-- Khu vực thanh điều hướng bên trái (Sidebar) -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <h1>IoT</h1>
+      </div>
+      
+      <!-- Danh sách các liên kết điều hướng -->
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="datasensor.html" class="active">Data Sensor</a>
+        <a href="history.html">Active History</a>
+        <a href="profile.html">Profile</a>
+      </nav>
+      
+      <!-- Khu vực hiển thị thông tin user và nút đăng xuất ở đáy sidebar -->
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar">A</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">admin</div>
+            <div class="sidebar-user-role">Quản trị viên</div>
+          </div>
+        </div>
+        <button class="btn-logout" id="btnLogout">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Khu vực nội dung chính của trang (Bảng dữ liệu & bộ lọc) -->
+    <main class="main-content">
+      <div class="data-table-wrapper">
+        <!-- Phần tiêu đề bảng và thanh công cụ tìm kiếm / lọc -->
+        <div class="data-table-header">
+          <div>
+            <h2>Dữ liệu cảm biến</h2>
+            <!-- Số lượng kết quả hiển thị (được cập nhật động bởi JS) -->
+            <span class="result-count" id="resultCount">-- kết quả</span>
+          </div>
+          
+          <!-- Bộ lọc và thanh tìm kiếm -->
+          <div class="data-table-filters">
+            <label>Tìm theo</label>
+            <!-- Chọn trường/cảm biến cần tìm -->
+            <select id="filterField">
+              <option value="all">ALL</option>
+              <option value="Nhiệt độ">Nhiệt độ</option>
+              <option value="Độ ẩm">Độ ẩm</option>
+              <option value="Ánh sáng">Ánh sáng</option>
+              <option value="time">Thời gian</option>
+            </select>
+            <!-- Ô nhập từ khóa tìm kiếm -->
+            <input type="text" id="searchInput" placeholder="Nhập giá trị tìm kiếm">
+            <!-- Nút kích hoạt tìm kiếm -->
+            <button id="btnSearch" class="btn-search">Tìm Kiếm</button>
+          </div>
+        </div>
+
+        <!-- Bảng hiển thị danh sách dữ liệu cảm biến -->
+        <div class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <!-- Tiêu đề cột ID kèm tính năng click để sắp xếp -->
+                <th class="col-id" data-sort="id">
+                  <span>ID</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Tên cảm biến kèm sắp xếp -->
+                <th class="col-sensor" data-sort="sensor_name">
+                  <span>Tên cảm biến</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Giá trị đo kèm sắp xếp -->
+                <th class="col-value" data-sort="value">
+                  <span>Giá trị</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+                <!-- Tiêu đề cột Thời gian ghi nhận kèm sắp xếp -->
+                <th class="col-time" data-sort="time">
+                  <span>Thời gian</span>
+                  <span class="sort-icon">↕</span>
+                </th>
+              </tr>
+            </thead>
+            <!-- Thân bảng: Dữ liệu các hàng sẽ được render linh hoạt bởi datasensor.js -->
+            <tbody id="sensorTableBody">
+              <!-- Dữ liệu render tự động từ JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Thanh điều khiển phân trang (Pagination) -->
+        <div class="pagination-wrapper">
+          <!-- Tùy chọn số lượng bản ghi hiển thị trên mỗi trang -->
+          <div class="pagination-page-size">
+            <label for="pageSizeSelect">Hiển thị:</label>
+            <select id="pageSizeSelect">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          <!-- Thông tin trang hiện tại trên tổng số trang -->
+          <div class="pagination-info" id="paginationInfo">Trang 1 / 3</div>
+          <!-- Các nút chuyển trang (Trước, 1, 2, 3, Sau) render bởi JS -->
+          <div class="pagination-controls" id="paginationControls">
+            <!-- Nút phân trang render bởi JavaScript -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Nhúng API client và script trang Data Sensor -->
+  <script src="../js/api.js"></script>
+  <script src="../js/datasensor.js"></script>
+</body>
+</html>

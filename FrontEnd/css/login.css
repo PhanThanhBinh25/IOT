@@ -1,0 +1,334 @@
+/* ===== FILE: login.css - GIAO DIỆN TRANG ĐĂNG NHẬP ===== */
+
+/* Khởi tạo biến màu sắc, phông chữ và thông số thiết kế cho trang đăng nhập */
+:root {
+  /* Bảng màu chính */
+  --color-primary: #2c3e6b;
+  --color-primary-light: #4a6fa5;
+  --color-accent: #5b6abf;
+  --color-accent-hover: #4a58a8;
+  --color-bg-white: #ffffff;
+
+  /* Màu chữ */
+  --color-text-dark: #1a2a4a;
+  --color-text-body: #3a4a6a;
+  --color-text-muted: #7a8aaa;
+  --color-text-white: #ffffff;
+
+  /* Màu viền và trạng thái */
+  --color-border: #d0daf0;
+  --color-danger: #dc3545;
+
+  /* Bo góc & chuyển động */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --transition-fast: 0.2s ease;
+
+  /* Phông chữ */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== RESET CSS ===== */
+
+/* Xóa khoảng cách mặc định và chuẩn hóa box-sizing cho mọi phần tử */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cấu hình phông chữ, màu sắc và chiều cao toàn màn hình cho body */
+body {
+  font-family: var(--font-family);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Chuẩn hóa phông chữ và xóa viền outline cho ô nhập và nút bấm */
+input, button {
+  font-family: inherit;
+  outline: none;
+}
+
+/* ===== BỐ CỤC CHUNG TRANG ĐĂNG NHẬP (LOGIN PAGE LAYOUT) ===== */
+
+/* Bố cục flexbox chia đôi màn hình trang đăng nhập */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg-white);
+}
+
+/* Panel bên trái: Giới thiệu thương hiệu & tính năng nổi bật */
+.login-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f5ff 0%, #d4e4f7 50%, #c0d8f0 100%);
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Họa tiết ánh sáng gradient trang trí nền panel trái */
+.login-left::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(107, 143, 199, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Khối bao bọc logo và tên thương hiệu */
+.login-brand {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Tiêu đề thương hiệu IoT lớn */
+.login-brand h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+}
+
+/* Dòng phụ đề mô tả hệ thống */
+.login-brand .subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary-light);
+  margin-bottom: 40px;
+}
+
+/* Khối danh sách các tính năng nổi bật */
+.login-features {
+  position: relative;
+  z-index: 1;
+}
+
+/* Từng dòng giới thiệu tính năng trong danh sách */
+.login-features .feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: var(--color-text-body);
+}
+
+/* Vạch kẻ màu xanh trang trí đầu mỗi dòng tính năng */
+.login-features .feature-item::before {
+  content: '';
+  width: 3px;
+  height: 24px;
+  background: var(--color-primary-light);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Panel bên phải chứa form đăng nhập */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+
+/* Khung giới hạn chiều rộng của form đăng nhập */
+.login-form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Tiêu đề Đăng nhập */
+.login-form-container h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  margin-bottom: 6px;
+}
+
+/* Dòng hướng dẫn phụ dưới tiêu đề form */
+.login-form-container .form-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+}
+
+/* Khối nhóm nhãn và ô nhập liệu */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Nhãn tên trường nhập dữ liệu */
+.form-group label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 8px;
+}
+
+/* Khung bọc ô nhập để định vị nút ẩn/hiện mật khẩu */
+.form-group .input-wrapper {
+  position: relative;
+}
+
+/* Ô nhập liệu văn bản tên đăng nhập và mật khẩu */
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--color-text-body);
+  background: var(--color-bg-white);
+  transition: all var(--transition-fast);
+}
+
+/* Chữ gợi ý mờ bên trong ô input */
+.form-group input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Đổi màu viền và tạo bóng phát sáng khi focus vào ô nhập */
+.form-group input:focus {
+  border-color: var(--color-primary-light);
+  box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.12);
+}
+
+/* Nút bấm chuyển đổi ẩn/hiện mật khẩu */
+.btn-toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color var(--transition-fast);
+}
+
+/* Hiệu ứng khi rê chuột vào nút ẩn/hiện mật khẩu */
+.btn-toggle-password:hover {
+  color: var(--color-primary);
+}
+
+/* Nút bấm thực hiện đăng nhập */
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-text-white);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hiệu ứng nhấc bổng nút đăng nhập khi rê chuột */
+.btn-login:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(91, 106, 191, 0.35);
+}
+
+/* Trạng thái khi người dùng click giữ chuột trên nút đăng nhập */
+.btn-login:active {
+  transform: translateY(0);
+}
+
+/* Khóa bấm và làm mờ nút đăng nhập khi đang xử lý request */
+.btn-login.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* Vòng xoay spinner hiển thị trên nút đăng nhập khi đang tải */
+.btn-login.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Hoạt ảnh xoay tròn 360 độ của vòng xoay loading */
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* Khung hiển thị thông báo lỗi đăng nhập (mặc định ẩn) */
+.login-error {
+  display: none;
+  padding: 10px 14px;
+  background: #fde8ea;
+  color: var(--color-danger);
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+  border-left: 3px solid var(--color-danger);
+}
+
+/* Hiển thị khung thông báo lỗi kèm hiệu ứng trượt */
+.login-error.show {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+/* Hoạt ảnh trượt nhẹ từ trên xuống của khung báo lỗi */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== THIẾT KẾ ĐÁP ỨNG CHO THIẾT BỊ DI ĐỘNG (RESPONSIVE) ===== */
+
+/* Responsive chuyển giao diện thành xếp dọc trên màn hình dưới 900px */
+@media (max-width: 900px) {
+  .login-page {
+    flex-direction: column;
+  }
+
+  .login-left {
+    padding: 32px;
+    min-height: auto;
+  }
+
+  .login-brand h1 {
+    font-size: 2.25rem;
+  }
+
+  .login-right {
+    padding: 32px;
+  }
+}
